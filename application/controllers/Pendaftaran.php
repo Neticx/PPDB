@@ -13,6 +13,17 @@ class Pendaftaran extends CI_Controller {
     function index() {
         $this->load->view('form', NULL);
     }
+    public function newForm($value='')
+    {
+        $this->compileView('newui/formulir');
+    }
+
+    private function compileView($form, $data = '')
+    {
+        $this->load->view('newui/header');
+        $this->load->view($form,$data);
+        $this->load->view('newui/footer');
+    }
     public function cek()
     {
         $tex = $this->input->post('text');
@@ -182,6 +193,59 @@ class Pendaftaran extends CI_Controller {
         $data['kemampuan'] = $this->Adm_model->kemampuan($id);
 
         $this->load->view('formulir', $data);
+    }
+
+    public function generate()
+    {
+        $this->db->select('*');
+        $this->db->from('calon_siswa');
+        $data['siswa'] = $this->db->get()->result();
+        $this->load->view('generate', $data);
+    }
+
+    public function cek_valid()
+    {
+        $kode = $this->input->post('kode');
+        $this->db->select('*');
+        $this->db->from('kode');
+        $this->db->where('code', $kode);
+        $cek = $this->db->get()->result();
+        foreach ($cek as $value) {
+            $siswa = $value->id_siswa;
+        }
+        
+        if (count($cek) == 1) {
+            if ($siswa !== '') {
+                echo json_encode($siswa);
+            }else {
+                echo json_encode(true);
+            }
+        }
+        else{
+            echo json_encode(false);
+        }
+
+    }
+
+    public function end_valid()
+    {
+        $id = $this->input->post('id_siswa');
+        $id_siswa = array('id_siswa' => $id );
+        $kode = $this->input->post('kode');
+        $tgl = $this->input->post('tgl');
+        $this->db->select('*');
+        $this->db->from('calon_siswa');
+        $this->db->where('id_siswa', $id);
+        $this->db->where('tgl_lahir', $tgl);
+        $cek = $this->db->get()->result();
+        if (count($cek) == 1) {
+            $this->db->where('code', $kode);
+            $this->db->update('kode', $id_siswa);
+            echo json_encode(true);
+        }
+        else{
+            echo json_encode(false);
+        }
     }
 
 

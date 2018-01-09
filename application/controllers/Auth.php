@@ -7,6 +7,7 @@
 class Auth extends CI_Controller {
 
 
+
 	public function logged_in_check()
 	{
 		if ($this->session->userdata("masuk")) {

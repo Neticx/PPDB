@@ -18,7 +18,18 @@
     <!-- Custom Theme Style -->
     <link href="<?= base_url(); ?>assets/build/css/custom.min.css" rel="stylesheet">
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+      <!-- <style>
+        .pop-up{
+        position: absolute;
+         /*background: #FFFFFF; */
+        width: 100%;
+        height: 68px;
+        /*bottom: 0px;*/
+        visibility: show;
+        z-index: 100;
+        }
 
+      </style> -->
     <!-- jQuery -->
     <script src="<?= base_url(); ?>assets/vendors/jquery/dist/jquery.min.js"></script>
    
@@ -118,13 +129,16 @@
                           </a>
                         </li>
                       </ul>
-
+<?php $now=strtotime(date("Y"));
+    $skrg = date('Y');
+    $date = date('Y', strtotime("1 Year", $now));
+ ?>
                       <!-- FORM 1 -->
                       <div id="step-1">
                       <center>
                         <h4>Bissmillahirrahmanirrahiim</h4>
                         <h2>FORMULIR PENDAFTARAN SANTRI BARU</h2>
-                        <h2>TAHUN PELAJARAN 2017/2018</h2>
+                        <h2>TAHUN PELAJARAN <?= $skrg."/".$date ?></h2>
                         <img src="<?= base_url(); ?>assets/build/img/1.png" alt="">
                       </center>
                       <form class="form-horizontal form-label-left">
@@ -952,7 +966,9 @@
         <!-- /footer content -->
       </div>
     </div>
-
+    <!-- <div class="pop-up">
+      <img src="<?php echo base_url();?>assets/build/img/banner.png" alt="">
+    </div> -->
  <!-- Bootstrap -->
     <script src="<?= base_url(); ?>assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->

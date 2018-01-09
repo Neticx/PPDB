@@ -20,6 +20,13 @@ class Admin_site extends CI_Controller {
 		$this->load->view('admin', $data);
 	}
 
+	public function generate()
+	{
+		$key = $this->input->post('kode');
+		$data = array('code' => $key);
+		$this->db->insert('kode', $data);
+	}
+
 }
 
 /* End of file Admin_site.php */

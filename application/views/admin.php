@@ -60,7 +60,8 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jumlah Santri yang mendaftar = <?php echo count($all); ?></h2>
+                    <h2 class="col-md-9">Jumlah Santri yang mendaftar = <?php echo count($all); ?></h2>
+                    <input type="text" class="col-md-1" maxlength="8" id="gen_kode">&nbsp<button id="btn_gen" class="btn-primary btn-xs"> generate kode</button>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -106,21 +107,21 @@
 
 
 <!-- Datatables -->
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/jszip/dist/jszip.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?= base_url(); ?>/assets/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/jszip/dist/jszip.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
 
 <!-- Custom Theme Scripts -->
 <!-- <script src="<?= base_url(); ?>assets/build/js/custom.min.js"></script> -->
@@ -129,6 +130,19 @@
         $('#datatable').dataTable();
         $('#datatable_filter').find("input").attr('placeholder', "Cari Calon Siswa");
       });
+      $('#btn_gen').click(function() {
+          var kode = $('#gen_kode').val();
+          $.ajax({
+            url: "<?php echo site_url('Admin_site/generate') ?>",
+            type: 'POST',
+            dataType: 'html',
+            data:"kode="+kode,
+            success: function(data) {
+              alert('Kode Berhasil Di Input');
+            }
+          });
+          
+        });
     </script>
     <!-- /Datatables -->
 
