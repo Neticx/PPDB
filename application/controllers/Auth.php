@@ -57,6 +57,11 @@ class Auth extends CI_Controller {
 		$this->load->view("login");
 	}
 
+	function login()
+	{
+		$this->load->view('newui/sign-in');
+	}
+
 	public function logout()
 	{
 		$this->session->unset_userdata("masuk");
