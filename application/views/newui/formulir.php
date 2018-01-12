@@ -14,21 +14,9 @@
                         <div class="header">
                             <h2>FORMULIR PENDAFTARAN</h2>
                             <small>Form dengan tanda bintang (*) artinya wajib di isi</small>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body">
-                            <form id="wizard_with_validation" method="POST">
+                            <form id="wizard_with_validation" action="<?php echo site_url('pendaftaran/insert') ?>" method="POST" enctype="multipart/form-data">
                                 <h3>Data Siswa</h3>
                                 <fieldset>
                                 <!-- nama -->
@@ -99,7 +87,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                   <input type="text" id="ijazah" class="form-control" name="no_ijazah">
+                                                   <input type="text" id="ijazah" class="form-control" name="ijazah">
                                                    <label class="form-label">Nomor Ijazah</label>
                                                 </div>
                                             </div>
@@ -601,10 +589,10 @@
                                         <div class="col-md-4">
                                             <label>Pekerjaan *</label>
                                             <div class="demo-radio-button">
-                                                <input name="pekerjaanwali" type="radio" id="pekerjaanwali6" class="with-gap radio-col-green" value="wali Rumah Tangga" checked />
-                                                <label for="pekerjaanwali6">wali Rumah Tangga</label>
-                                                <input name="pekerjaanwali" type="radio" id="pekerjaanwali1" class="with-gap radio-col-green" value="Petani/Beternak" />
+                                                <input name="pekerjaanwali" type="radio" id="pekerjaanwali1" class="with-gap radio-col-green" value="Petani/Beternak" checked/>
                                                 <label for="pekerjaanwali1">Petani/Beternak</label>
+                                                <input name="pekerjaanwali" type="radio" id="pekerjaanwali6" class="with-gap radio-col-green" value="Ibu Rumah Tangga"  />
+                                                <label for="pekerjaanwali6">Ibu Rumah Tangga</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali2" class="with-gap radio-col-green" value="PNS" />
                                                 <label for="pekerjaanwali2">PNS</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali3" class="with-gap radio-col-green" value="Dokter" />
@@ -701,7 +689,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                   <input type="text" name="hobby" class="form-control" >
+                                                   <input type="text" name="hobi" class="form-control" >
                                                    <label class="form-label">Hobi/Kesukaan Anak</label>
                                                 </div>
                                             </div>
@@ -719,7 +707,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                   <input type="text" name="karakter" class="form-control" >
+                                                   <input type="text" name="sifat" class="form-control" >
                                                    <label class="form-label">Karakteristik/Sifat yang perlu di perhatikan</label>
                                                 </div>
                                             </div>

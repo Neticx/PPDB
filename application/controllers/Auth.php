@@ -54,13 +54,9 @@ class Auth extends CI_Controller {
 			}
 		}
 
-		$this->load->view("login");
+		$this->load->view("newui/sign-in");
 	}
 
-	function login()
-	{
-		$this->load->view('newui/sign-in');
-	}
 
 	public function logout()
 	{

@@ -108,15 +108,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo site_url('print'); ?>">
+                        <a href="<?php echo site_url('cetak'); ?>">
                             <i class="material-icons">text_fields</i>
                             <span>CETAK KARTU</span>
                         </a>
                     </li>
+                    <?php if ( ! $this->session->userdata('masuk'))
+                            {
+                                $url = 'login';
+                                $name = 'LOGIN';
+                            }else {
+                                $url = 'logout';
+                                $name = 'LOGOUT';
+                            }
+                     ?>
                     <li>
-                        <a href="<?php echo site_url('auth'); ?>">
+                        <a href="<?php echo site_url($url); ?>">
                             <i class="material-icons">layers</i>
-                            <span>LOGIN</span>
+                            <span><?php echo $name; ?></span>
                         </a>
                     </li>
                 </ul>

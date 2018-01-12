@@ -33,7 +33,7 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST">
+                <form id="sign_in" action="<?php echo site_url('auth') ?>" method="POST">
                     <div class="msg">Masuk ke halaman admin</div>
                     <div class="input-group">
                         <span class="input-group-addon">

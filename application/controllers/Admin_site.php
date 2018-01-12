@@ -7,23 +7,18 @@ class Admin_site extends CI_Controller {
 	{
 		parent::__construct();
 		//cek jika belum login => redirect login
-		// if ( ! $this->session->userdata('masuk'))
-  //       {
-  //           redirect('auth');
-  //       }
-  //       $this->load->model('Adm_model');
+		if ( ! $this->session->userdata('masuk'))
+        {
+            redirect('auth');
+        }
+        $this->load->model('Adm_model');
 	}
 
 	public function index()
 	{
 		$data['all'] = $this->Adm_model->all();
-		$this->load->view('admin', $data);
-	}
-
-	public function lists($value='')
-	{
 		$this->load->view('newui/header');
-		$this->load->view('newui/list');
+		$this->load->view('newui/list', $data);
 		$this->load->view('newui/footer');
 	}
 

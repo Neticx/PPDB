@@ -60,6 +60,7 @@
                     'excel', 'pdf', 'print'
                 ]
             });
+            $('li').find("a[href$='#finish']").attr('onclick', "$('#wizard_with_validation').submit()");
         });
     </script>
 </body>
