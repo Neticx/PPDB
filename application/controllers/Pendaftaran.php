@@ -24,12 +24,6 @@ class Pendaftaran extends CI_Controller {
         $this->load->view($form,$data);
         $this->load->view('newui/footer');
     }
-    public function cek()
-    {
-        $tex = $this->input->post('text');
-        $sub = substr($tex,1,-1);
-        echo json_encode($sub);
-    }
 
     public function insert()
     {
@@ -162,22 +156,61 @@ class Pendaftaran extends CI_Controller {
             );
         $this->db->insert('surat', $surat);
 
-        echo json_encode($id);
+        header('Location: '.site_url('cetak'));
 
     }
+    public $nama;
 
     public function cetak()
     {
-        $id = $this->uri->segment(3);
-        $data['siswa'] = $this->Adm_model->siswa($id);
-        $data['ayah'] = $this->Adm_model->ayah($id);
-        $data['ibu'] = $this->Adm_model->ibu($id);
-        $data['wali'] = $this->Adm_model->wali($id);
-        $data['kartu'] = $this->Adm_model->kartu($id);
-        $data['surat'] = $this->Adm_model->surat($id);
-        $data['kemampuan'] = $this->Adm_model->kemampuan($id);
+        $this->nama = 'Ini Nama';
+        $nama= $this->nama;
+        $this->getPdf($nama);
+        // if (!empty($this->uri->segment(2))) {
+        //     $id = $this->uri->segment(2);
+        //     $data['siswa'] = $this->Adm_model->siswa($id);
+        //     $data['ayah'] = $this->Adm_model->ayah($id);
+        //     $data['ibu'] = $this->Adm_model->ibu($id);
+        //     $data['wali'] = $this->Adm_model->wali($id);
+        //     $data['surat'] = $this->Adm_model->surat($id);
+        //     $data['kemampuan'] = $this->Adm_model->kemampuan($id);
+        //     $this->compileView('newui/pdf', $data);
+        // }else {
+        //     $data['all'] = $this->Adm_model->all();
+        //     $this->compileView('newui/cetak', $data);
+        // }
+    }
 
-        $this->load->view('formulir', $data);
+    function getPdf($data = '')
+    {
+        $this->load->library('Pdf');
+        // Instanciation of inherited class
+        $pdf = new PDF('P','mm','A4');
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->SetFont('Times','B',12);
+        // Set font
+        // $pdf->SetFont('Arial','B',16);
+        // Move to 8 cm to the right
+        $pdf->Cell(80);
+        // Centered text in a framed 20*10 mm cell and line break
+        //margin left right, margin top bottom, text, border, line break
+        $pdf->Cell(20,0,'Bissmillahirrahmanirrahim',0,1,'C');
+        $pdf->ln(5);
+        $pdf->Cell(80);
+        // Centered text in a framed 20*10 mm cell and line break
+        $pdf->Cell(20,0,'FORMULIR PENDAFTARAN SANTRI BARU',0,1,'C');
+        $pdf->ln(5);
+        $pdf->Cell(80);
+        // Centered text in a framed 20*10 mm cell and line break
+        $pdf->Cell(20,0,'TAHUN PELAJARAN 2018/2019',0,1,'C');
+        $pdf->ln(15);
+        $pdf->SetFont('Arial','',10);
+        $pdf->Cell(10);
+        $pdf->Cell(20,0,'TAHUN PELAJARAN 2018/2019',0,1,'C');
+
+
+        $pdf->Output();
     }
 
     public function generate()
@@ -191,23 +224,23 @@ class Pendaftaran extends CI_Controller {
     public function cek_valid()
     {
         $kode = $this->input->post('kode');
+        $id = $this->uri->segment(3);
         $this->db->select('*');
         $this->db->from('kode');
         $this->db->where('code', $kode);
-        $cek = $this->db->get()->result();
-        foreach ($cek as $value) {
-            $siswa = $value->id_siswa;
+        $cek = $this->db->get()->result_array();
+        $siswa ='';
+        if (isset($cek[0]['id_siswa'])) {
+            $siswa = $cek[0]['id_siswa'];
         }
-        
-        if (count($cek) == 1) {
-            if ($siswa !== '') {
-                echo json_encode($siswa);
-            }else {
-                echo json_encode(true);
-            }
-        }
-        else{
-            echo json_encode(false);
+        if (!empty($cek) && !empty($siswa)) {
+                header('Location: '.site_url('cetak/'.$siswa));
+        }elseif (!empty($cek) && empty($siswa)) {
+                $this->db->where('code', $kode);
+                $this->db->update('kode', ['id_siswa' => $id]);
+                header('Location: '.site_url('cetak/'.$id));
+        }else{
+            echo 'Kode salah. silahkan kembali ke halaman cetak.';
         }
 
     }

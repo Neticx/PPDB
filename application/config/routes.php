@@ -52,5 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'pendaftaran/newForm';
 $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
+$route['cetak'] = 'pendaftaran/cetak';
+$route['cetak/:num'] = 'pendaftaran/cetak';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
