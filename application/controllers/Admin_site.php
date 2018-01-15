@@ -28,6 +28,13 @@ class Admin_site extends CI_Controller {
 		$data = array('code' => $key);
 		$this->db->insert('kode', $data);
 	}
+	function delete()
+	{
+		$id = $this->uri->segment(2);
+		$this->db->where('id_siswa', $id);
+		$this->db->delete('calon_siswa');
+		header('Location: '.site_url('Admin_site'));
+	}
 
 }
 

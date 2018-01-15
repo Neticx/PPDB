@@ -74,6 +74,7 @@ class Pendaftaran extends CI_Controller {
             'tahun' => date('Y'),
             'skhun' => $this->input->post('skhun'),
             'warga_siswa' => $this->input->post('kewarganegaraan'),
+            'anak_ke' => $this->input->post('anak_ke'),
             'sdr_knd' => $this->input->post('kandung'),
             'sdr_tir' => $this->input->post('tiri'),
             'sdr_ang' => $this->input->post('angkat'),
@@ -115,6 +116,7 @@ class Pendaftaran extends CI_Controller {
             'pend_ibu' => $this->input->post('pendidikanibu'),
             'kerja_ibu' => $this->input->post('pekerjaanibu'),
             'gaji_ibu' => $this->input->post('penghasilanibu'),
+            'rumah_ibu' => $this->input->post('alamatrumahibu'),
             'kantor_ibu' => $this->input->post('alamatkantoribu'),
             'organisasi_ibu' => $this->input->post('organisasiibu')
             );
@@ -129,6 +131,7 @@ class Pendaftaran extends CI_Controller {
             'pend_wali' => $this->input->post('pendidikanwali'),
             'kerja_wali' => $this->input->post('pekerjaanwali'),
             'gaji_wali' => $this->input->post('penghasilanwali'),
+            'rumah_wali' => $this->input->post('alamatrumahwali'),
             'kantor_wali' => $this->input->post('alamatkantorwali'),
             'organisasi_wali' => $this->input->post('organisasiwali')
             );
@@ -159,57 +162,186 @@ class Pendaftaran extends CI_Controller {
         header('Location: '.site_url('cetak'));
 
     }
-    public $nama;
-
     public function cetak()
     {
-        $this->nama = 'Ini Nama';
-        $nama= $this->nama;
-        $this->getPdf($nama);
-        // if (!empty($this->uri->segment(2))) {
-        //     $id = $this->uri->segment(2);
-        //     $data['siswa'] = $this->Adm_model->siswa($id);
-        //     $data['ayah'] = $this->Adm_model->ayah($id);
-        //     $data['ibu'] = $this->Adm_model->ibu($id);
-        //     $data['wali'] = $this->Adm_model->wali($id);
-        //     $data['surat'] = $this->Adm_model->surat($id);
-        //     $data['kemampuan'] = $this->Adm_model->kemampuan($id);
-        //     $this->compileView('newui/pdf', $data);
-        // }else {
-        //     $data['all'] = $this->Adm_model->all();
-        //     $this->compileView('newui/cetak', $data);
-        // }
+        if (!empty($this->uri->segment(2))) {
+            $id = $this->uri->segment(2);
+            $siswa = $this->Adm_model->siswa($id);
+            $ayah = $this->Adm_model->ayah($id);
+            $ibu = $this->Adm_model->ibu($id);
+            $wali = $this->Adm_model->wali($id);
+            $surat = $this->Adm_model->surat($id);
+            $kemampuan = $this->Adm_model->kemampuan($id);
+            // $this->compileView('newui/pdf', $data);
+            $this->getPdf($siswa,$ayah,$ibu,$wali,$surat,$kemampuan);
+        }else {
+            $data['all'] = $this->Adm_model->all();
+            $this->compileView('newui/cetak', $data);
+        }
     }
 
-    function getPdf($data = '')
+    function getPdf($siswa,$ayah,$ibu,$wali,$surat,$kemampuan)
     {
         $this->load->library('Pdf');
-        // Instanciation of inherited class
         $pdf = new PDF('P','mm','A4');
         $pdf->AliasNbPages();
+        //Add Form Siswa
         $pdf->AddPage();
-        $pdf->SetFont('Times','B',12);
         // Set font
-        // $pdf->SetFont('Arial','B',16);
-        // Move to 8 cm to the right
-        $pdf->Cell(80);
-        // Centered text in a framed 20*10 mm cell and line break
-        //margin left right, margin top bottom, text, border, line break
-        $pdf->Cell(20,0,'Bissmillahirrahmanirrahim',0,1,'C');
-        $pdf->ln(5);
-        $pdf->Cell(80);
-        // Centered text in a framed 20*10 mm cell and line break
-        $pdf->Cell(20,0,'FORMULIR PENDAFTARAN SANTRI BARU',0,1,'C');
-        $pdf->ln(5);
-        $pdf->Cell(80);
-        // Centered text in a framed 20*10 mm cell and line break
-        $pdf->Cell(20,0,'TAHUN PELAJARAN 2018/2019',0,1,'C');
+        $pdf->title('Bissmillahirrahmanirrahim');
+        $pdf->title('FORMULIR PENDAFTARAN SANTRI BARU');
+        $pdf->title('TAHUN PELAJARAN 2018/2019');
         $pdf->ln(15);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(10);
-        $pdf->Cell(20,0,'TAHUN PELAJARAN 2018/2019',0,1,'C');
+        //standard form
+        $pdf->standard(1,'Nama Lengkap', $siswa[0]['nl_siswa']);
+        $pdf->standard(2,'Nama Panggilan', $siswa[0]['np_siswa']);
+        $pdf->standard(3,'Jenis Kelamin', $siswa[0]['jk_siswa']);
+        $pdf->standard(4,'Tempat Tanggal Lahir', $siswa[0]['ttl']);
+        $pdf->standard(5,'Agama', $siswa[0]['agama_siswa']);
+        $pdf->standard(6,'Asal Sekolah', $siswa[0]['asal_sekolah']);
+        //subForm
+        $pdf->subForm('a','No Ijazah SD', $siswa[0]['ijazah']);
+        $pdf->subForm('b','NISN', $siswa[0]['nisn']);
+        $pdf->subForm('c','NIK', $siswa[0]['nik']);
+        $pdf->subForm('d','SKHUN', $siswa[0]['skhun']);
+        $pdf->standard(7,'Kewarganegaraan', $siswa[0]['warga_siswa']);
+        $pdf->standard(8,'Anak Ke', $siswa[0]['anak_ke']);
+        $pdf->standard(9,'Jumlah Saudara', '');
+        $pdf->subForm('a','Saudara Kandung', $siswa[0]['sdr_knd']);
+        $pdf->subForm('b','Saudara Tiri', $siswa[0]['sdr_tir']);
+        $pdf->subForm('c','Saudara Angkat', $siswa[0]['sdr_ang']);
+        $pdf->standard(10,'Kondisi Fisik', '');
+        $pdf->subForm('a','Berat Badan(Kg)', $siswa[0]['berat']);
+        $pdf->subForm('b','Tinggi Badan(Cm)', $siswa[0]['tinggi']);
+        $pdf->subForm('c','Golongan Darah', $siswa[0]['gol_dar']);
+        $pdf->subForm('d','Penyakit yang pernah diderita', $siswa[0]['penyakit']);
+        $pdf->standard(12,'Alamat Lengkap', $siswa[0]['alamat'].'. '.$siswa[0]['kode_pos']);
+        $pdf->standard(13,'No tlp/HP', $siswa[0]['hp_siswa']);
+        $pdf->standard(14,'Bertempat tinggal pada', $siswa[0]['tinggal']);
 
+        //add form orangtua
+        $pdf->AddPage();
+        $pdf->title('DATA ORANG TUA');
+        //data ayah
+        $pdf->subtitle('A. AYAH');
+        $pdf->standard(1,'Nama Lengkap', $ayah[0]['nl_ayah']);
+        $pdf->standard(2,'Tempat Tanggal Lahir', $ayah[0]['ttl_ayah']);
+        $pdf->standard(3,'Agama', $ayah[0]['agama_ayah']);
+        $pdf->standard(4,'Kewarganegaraan', $ayah[0]['warga_ayah']);
+        $pdf->standard(5,'Pendidikan Terakhir', $ayah[0]['pend_ayah']);
+        $pdf->standard(6,'Pekerjaan', $ayah[0]['kerja_ayah']);
+        $pdf->standard(7,'Penghasilan', $ayah[0]['gaji_ayah']);
+        $pdf->standard(8,'Alamat Rumah', $ayah[0]['rumah_ayah']);
+        $pdf->standard(9,'Alamat Kantor', $ayah[0]['kantor_ayah']);
+        $pdf->standard(10,'Pengalaman Organisasi', $ayah[0]['organisasi_ayah']);
+        //data ibu
+        $pdf->subtitle('B. IBU');
+        $pdf->standard(1,'Nama Lengkap', $ibu[0]['nl_ibu']);
+        $pdf->standard(2,'Tempat Tanggal Lahir', $ibu[0]['ttl_ibu']);
+        $pdf->standard(3,'Agama', $ibu[0]['agama_ibu']);
+        $pdf->standard(4,'Kewarganegaraan', $ibu[0]['warga_ibu']);
+        $pdf->standard(5,'Pendidikan Terakhir', $ibu[0]['pend_ibu']);
+        $pdf->standard(6,'Pekerjaan', $ibu[0]['kerja_ibu']);
+        $pdf->standard(7,'Penghasilan', $ibu[0]['gaji_ibu']);
+        $pdf->standard(8,'Alamat Rumah', $ibu[0]['rumah_ibu']);
+        $pdf->standard(9,'Alamat Kantor', $ibu[0]['kantor_ibu']);
+        $pdf->standard(10,'Pengalaman Organisasi', $ibu[0]['organisasi_ibu']);
+        //data wali
+        $pdf->subtitle('C. WALI');
+        $pdf->standard(1,'Nama Lengkap', $wali[0]['nl_wali']);
+        $pdf->standard(2,'Tempat Tanggal Lahir', $wali[0]['ttl_wali']);
+        $pdf->standard(3,'Agama', $wali[0]['agama_wali']);
+        $pdf->standard(4,'Kewarganegaraan', $wali[0]['warga_wali']);
+        $pdf->standard(5,'Pendidikan Terakhir', $wali[0]['pend_wali']);
+        $pdf->standard(6,'Pekerjaan', $wali[0]['kerja_wali']);
+        $pdf->standard(7,'Penghasilan', $wali[0]['gaji_wali']);
+        $pdf->standard(8,'Alamat Rumah', $wali[0]['rumah_wali']);
+        $pdf->standard(9,'Alamat Kantor', $wali[0]['kantor_wali']);
+        $pdf->standard(10,'Pengalaman Organisasi', $wali[0]['organisasi_wali']);
 
+        //add form kemampuan
+        $pdf->AddPage();
+        $pdf->title('DATA KEMAMPUAN DAN KESEHATAN');
+        //data ayah
+        $pdf->standard(1,'Pelaksanaan Sholat Lima Waktu', $kemampuan[0]['sholat']);
+        $pdf->standard(2,'Surat yang sudah di Hafal', $kemampuan[0]['hafalan']);
+        $pdf->standard(3,'Kemampuan Membaca Al-Quran', $kemampuan[0]['bacaan']);
+        $pdf->standard(4,'Hobby/Kesukaan Anak', $kemampuan[0]['hobi']);
+        $pdf->standard(5,'Prestasi yang pernah diraih', $kemampuan[0]['prestasi']);
+        $pdf->standard(6,'sifat/karakter khusus', $kemampuan[0]['sifat']);
+        $pdf->substandard('',' yang perlu di perhatikan', '');
+        $pdf->standard(7,'Penyakit keras/kecelakaan', $kemampuan[0]['penyakit_keras']);
+        $pdf->substandard('',' yang pernah diderita', '');
+        //form pernyataan
+        $pdf->AddPage();
+        $pdf->title('Bissmillahirrahmanirrahim');
+        $pdf->title('SURAT PERNYATAAN PELIMPAHAN PENDIIKAN');
+        $pdf->title('DAN KESEDIAAN DANA ORANG TUA/WALI CALON SISWA');
+        $pdf->title('TAHUN PELAJARAN 2018/2019');
+        $pdf->nonstandard('Nomor Pendaftaran', '     -     -     -');
+        $pdf->nonstandard('Nama Orang Tua/Wali', $surat[0]['nama_ortu']);
+        $pdf->nonstandard('Alamat', $surat[0]['alamat']);
+        $pdf->nonstandard('Telepon/HP', $surat[0]['handphone']);
+        $pdf->nonstandard('Orang Tua/Wali calon siswa dari', $surat[0]['ortu_dari']);
+        $pdf->ln(2);
+        $pdf->nonstandard("Dengan Ikhlas menginfaqan dana pendidikan kepada Pesantren Tahfidzul Qur'an Al Azzam SMPIT Bina Insani :", '');
+        $pdf->ln(2);
+        $pdf->standard(1,'Paket Pendidikan', 'Rp. 1.700.000');
+        $pdf->standard(2,'Bahan Seragam Santri(4 Stel)', 'Rp. 900.000');
+        $pdf->standard(3,'Perkap Asrama', 'Rp. 3.000.000');
+        $pdf->standard(4,'Wakaf Pembangunan', 'Rp. 4.000.000');
+        $pdf->standard(4,'Uang Syariah bulan juli', 'Rp. 975.000');
+        $pdf->substandard('',' Jumlah Total', 'Rp. 10.575.000');
+        $pdf->ln(5);
+        $pdf->subtitle('CATATAN');
+        $pdf->ln(10);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(1);
+            //margin left right, margin top bottom, text, border, line break
+        $pdf->Cell(50,0,'A. Penyelesaian Kesediaan Dana Pendidikan tersebut di atas dengan ketentuan sebagai berikut:',0,1,'L');
+        $pdf->ln(5);
+        $pdf->nonstandard("Pembayaran Pertama saat daftar ulang menyelesaikan:", '');
+        $pdf->substandard('','1. 50% Paket Pendidikan', '');
+        $pdf->substandard('','2. 100% Biaya Seragam', '');
+        $pdf->substandard('','3. 100% Perkap Asrama', '');
+        $pdf->substandard('','4. 50% Wakaf Pembangunan', '');
+        $pdf->substandard('','5. 100% Uang Syariah bulan juli', '');
+        $pdf->nonstandard("Pelunasan sisa kesediaan Dana Pendidikan paling lambat bulan desember 2018.", '');
+        $pdf->ln(10);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(1);
+            //margin left right, margin top bottom, text, border, line break
+        $pdf->Cell(50,0,'B. Selaku Orang Tua/Wali siswa tersebut dengan sungguh-sungguh dan penuh kesadaran kami menyatakan bahwa:',0,1,'L');
+        $pdf->ln(5);
+        $pdf->substandard('','1. Menyerahkan sepenuhnya pendiikan calon siswa kepada pihak sekolah.', '');
+        $pdf->substandard('','2. Bersedia membimbing dan mengawasi calon siswa tersebut di lingkungan dan masyarakat.', '');
+        $pdf->substandard('','3. Apabila terjadi pengunduran diri pada putra/putri kami, maka 50% biaya administrasi yang sudah dibayar kami', '');
+        $pdf->substandard('','   infaqan kepada SMPIT BINA INSANI.', '');
+        $pdf->nonstandard("Demikian pernyataan ini kami buat, semoga memberikan manfaat yang sebesar besarnya pada pendidikan putra/putri kami", '');
+        $pdf->substandard('',"dan mendapatkan ridho Allah Subhanallahu Wa Ta'ala. Amiin.", '');
+        $pdf->assign();
+
+        //add form kemampuan
+        $pdf->AddPage();
+        $pdf->title('KARTU PENDAFTARAN');
+        $pdf->nonstandard('Nomor Pendaftaran', '     -     -     -');
+        $pdf->nonstandard('Nama Calon Siswa', $siswa[0]['nl_siswa']);
+        $pdf->nonstandard('Alamat', $siswa[0]['alamat']);
+        $pdf->nonstandard('Telepon/HP', $siswa[0]['hp_siswa']);
+        $pdf->nonstandard('Agama', $siswa[0]['agama_siswa']);
+        $pdf->ln(80);
+        $pdf->substandard('','*) Potong Disini', '');
+        $pdf->Line(5,160,200,160);
+        $pdf->Image(base_url().'/assets/upload/sample.png',170,95,30);
+        $pdf->ln(20);
+        $pdf->title('KARTU PENDAFTARAN');
+        $pdf->nonstandard('Nomor Pendaftaran', '     -     -     -');
+        $pdf->nonstandard('Nama Calon Siswa', $siswa[0]['nl_siswa']);
+        $pdf->nonstandard('Alamat', $siswa[0]['alamat']);
+        $pdf->nonstandard('Telepon/HP', $siswa[0]['hp_siswa']);
+        $pdf->nonstandard('Agama', $siswa[0]['agama_siswa']);
+        $pdf->Image(base_url().'/assets/upload/sample.png',170,225,30);
+        //END
         $pdf->Output();
     }
 

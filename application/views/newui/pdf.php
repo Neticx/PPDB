@@ -85,7 +85,7 @@
                     </h2>
                 </div>
                 <div class="body" style="text-align: center;">
-                <button onclick="console.log(pdfMake.createPdf(dd));" class="btn btn-col-green">Cetak</button>
+                <button onclick="alert(pdfMake.createPdf(dd).open());" class="btn btn-col-green">Cetak</button>
                 </div>
             </div>
           </div>

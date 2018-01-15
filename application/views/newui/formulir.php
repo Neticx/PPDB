@@ -118,7 +118,7 @@
                                         </div>
                                     </div>
                                     <div class="row clearfix">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label>Kewarganegaraan *</label>
                                             <div class="demo-radio-button">
                                                 <input name="kewarganegaraan" type="radio" id="kewarganegaraan1" class="with-gap radio-col-green" value="Warga Negara Indonesia(WNI)" checked />
@@ -127,7 +127,15 @@
                                                 <label for="kewarganegaraan2">Warga Negara Asing(WNA)</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                   <input type="number" name="anak_ke" class="form-control">
+                                                   <label class="form-label">Anak Ke</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="number" name="kandung" class="form-control">
@@ -135,7 +143,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="number" name="tiri" class="form-control">
@@ -143,7 +151,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="number" name="angkat" class="form-control">
@@ -332,13 +340,13 @@
                                                 <input name="pekerjaanayah" type="radio" id="pekerjaanayah8" class="with-gap radio-col-green" value="Guru/Dosen" />
                                                 <label for="pekerjaanayah8">Guru/Dosen</label>
                                                 <input name="pekerjaanayah" type="radio" id="pekerjaanayah9" class="with-gap radio-col-green" value="Politikus" />
-                                                <label for="pendidikanayah9">Politikus</label>
+                                                <label for="pekerjaanayah9">Politikus</label>
                                                 <input name="pekerjaanayah" type="radio" id="pekerjaanayah10" class="with-gap radio-col-green" value="Pedagang" />
                                                 <label for="pekerjaanayah10">Pedagang</label>
                                                 <input name="pekerjaanayah" type="radio" id="pekerjaanayah11" class="with-gap radio-col-green" value="Wiraswasta" />
-                                                <label for="pekerjaanayah10">Wiraswasta</label>
+                                                <label for="pekerjaanayah11">Wiraswasta</label>
                                                 <input name="pekerjaanayah" type="radio" id="pekerjaanayah12" class="with-gap radio-col-green" value="Lain-lain" />
-                                                <label for="pendidikanayah11">Lain-lain</label>
+                                                <label for="pekerjaanayah12">Lain-lain</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -473,13 +481,13 @@
                                                 <input name="pekerjaanibu" type="radio" id="pekerjaanibu8" class="with-gap radio-col-green" value="Guru/Dosen" />
                                                 <label for="pekerjaanibu8">Guru/Dosen</label>
                                                 <input name="pekerjaanibu" type="radio" id="pekerjaanibu9" class="with-gap radio-col-green" value="Politikus" />
-                                                <label for="pendidikanibu9">Politikus</label>
+                                                <label for="pekerjaanibu9">Politikus</label>
                                                 <input name="pekerjaanibu" type="radio" id="pekerjaanibu10" class="with-gap radio-col-green" value="Pedagang" />
                                                 <label for="pekerjaanibu10">Pedagang</label>
                                                 <input name="pekerjaanibu" type="radio" id="pekerjaanibu11" class="with-gap radio-col-green" value="Wiraswasta" />
-                                                <label for="pekerjaanibu10">Wiraswasta</label>
+                                                <label for="pekerjaanibu11">Wiraswasta</label>
                                                 <input name="pekerjaanibu" type="radio" id="pekerjaanibu12" class="with-gap radio-col-green" value="Lain-lain" />
-                                                <label for="pendidikanibu11">Lain-lain</label>
+                                                <label for="pekerjaanibu12">Lain-lain</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -499,7 +507,15 @@
                                         </div>
                                     </div>
                                     <div class="row clearfix">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                   <input type="text" name="alamatrumahibu" class="form-control" >
+                                                   <label class="form-label">Alamat Rumah</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="text" name="alamatkantoribu" class="form-control" >
@@ -507,7 +523,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="text" name="organisasiibu" class="form-control" >
@@ -606,13 +622,13 @@
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali8" class="with-gap radio-col-green" value="Guru/Dosen" />
                                                 <label for="pekerjaanwali8">Guru/Dosen</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali9" class="with-gap radio-col-green" value="Politikus" />
-                                                <label for="pendidikanwali9">Politikus</label>
+                                                <label for="pekerjaanwali9">Politikus</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali10" class="with-gap radio-col-green" value="Pedagang" />
                                                 <label for="pekerjaanwali10">Pedagang</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali11" class="with-gap radio-col-green" value="Wiraswasta" />
-                                                <label for="pekerjaanwali10">Wiraswasta</label>
+                                                <label for="pekerjaanwali11">Wiraswasta</label>
                                                 <input name="pekerjaanwali" type="radio" id="pekerjaanwali12" class="with-gap radio-col-green" value="Lain-lain" />
-                                                <label for="pendidikanwali11">Lain-lain</label>
+                                                <label for="pekerjaanwali12">Lain-lain</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -632,7 +648,15 @@
                                         </div>
                                     </div>
                                     <div class="row clearfix">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                   <input type="text" name="alamatrumahwali" class="form-control" >
+                                                   <label class="form-label">Alamat Rumah</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="text" name="alamatkantorwali" class="form-control" >
@@ -640,7 +664,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                    <input type="text" name="organisasiwali" class="form-control" >

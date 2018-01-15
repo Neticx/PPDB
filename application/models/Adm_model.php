@@ -15,7 +15,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('calon_siswa');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 
 	public function ayah($id)
@@ -23,7 +23,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('ayah_siswa');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 
 	public function ibu($id)
@@ -31,7 +31,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('ibu_siswa');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 
 	public function wali($id)
@@ -39,7 +39,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('wali_siswa');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 
 	public function kartu($id)
@@ -55,7 +55,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('surat');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 
 	public function kemampuan($id)
@@ -63,7 +63,7 @@ class Adm_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('kemampuan_siswa');
 		$this->db->where('id_siswa', $id);
-		return $this->db->get()->result();
+		return $this->db->get()->result_array();
 	}
 	public function base($id)
 	{

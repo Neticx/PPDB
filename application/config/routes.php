@@ -54,5 +54,6 @@ $route['login'] = 'auth';
 $route['logout'] = 'auth/logout';
 $route['cetak'] = 'pendaftaran/cetak';
 $route['cetak/:num'] = 'pendaftaran/cetak';
+$route['delete/:num'] = 'admin_site/delete';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

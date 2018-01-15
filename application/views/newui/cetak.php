@@ -19,7 +19,7 @@
                             <span>Silahkan cari nama calon siswa di kolom search</span>
                         </div>
                         <div class="body">
-                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                            <table class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
